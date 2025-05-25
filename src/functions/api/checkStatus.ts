@@ -5,7 +5,8 @@ export async function checkStatus() {
   try {
     result = await axios.get("https://api.loopy5418.dev/health")
   } catch (e) {
-    result.data = false
+    
+    result = { data: false }
   }
-  return result.data == "OK" ? true: false
+  return result?.data == "OK" ? true: false
 };

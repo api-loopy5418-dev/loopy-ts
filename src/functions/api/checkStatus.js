@@ -16,8 +16,14 @@ exports.checkStatus = checkStatus;
 const axios_1 = __importDefault(require("axios"));
 function checkStatus() {
     return __awaiter(this, void 0, void 0, function* () {
-        const result = yield axios_1.default.get("https://api.loopy5418.dev/health");
-        return result.data == "OK" ? true : false;
+        let result;
+        try {
+            result = yield axios_1.default.get("https://api.loopy5418.dev/health");
+        }
+        catch (e) {
+            result = { data: false };
+        }
+        return (result === null || result === void 0 ? void 0 : result.data) == "OK" ? true : false;
     });
 }
 ;
