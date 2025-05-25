@@ -1,0 +1,1 @@
+{"version":3,"file":"owoifyText.js","sourceRoot":"","sources":["../../../src/functions/fun/owoifyText.ts"],"names":[],"mappings":";;;;;AAEA,gCAIC;AAND,kDAAyB;AAElB,KAAK,UAAU,UAAU,CAAC,IAAY;IAC3C,IAAI,IAAI,KAAK,SAAS;QAAE,OAAO,yCAAyC,CAAA;IACxE,MAAM,GAAG,GAAG,kBAAkB,CAAC,IAAI,CAAC,CAAA;IACpC,OAAO,MAAM,eAAK,CAAC,GAAG,CAAC,yCAAyC,GAAG,EAAE,CAAC,CAAA;AACxE,CAAC;AAAA,CAAC"}

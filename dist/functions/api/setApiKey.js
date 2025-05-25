@@ -25,3 +25,4 @@ function setApiKey(key) {
         fs_1.default.writeFileSync('.env_loopy', `KEY=${key}`);
     }
 }
+//# sourceMappingURL=setApiKey.js.map

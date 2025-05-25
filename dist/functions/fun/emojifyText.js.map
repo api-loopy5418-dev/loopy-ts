@@ -1,0 +1,1 @@
+{"version":3,"file":"emojifyText.js","sourceRoot":"","sources":["../../../src/functions/fun/emojifyText.ts"],"names":[],"mappings":";;;;;AAEA,kCAIC;AAND,kDAAyB;AAElB,KAAK,UAAU,WAAW,CAAC,IAAY;IAC5C,IAAI,IAAI,KAAK,SAAS;QAAE,OAAO,+CAA+C,CAAA;IAC9E,MAAM,KAAK,GAAG,kBAAkB,CAAC,IAAI,CAAC,CAAA;IACtC,OAAO,MAAM,eAAK,CAAC,GAAG,CAAC,0CAA0C,KAAK,EAAE,CAAC,CAAA;AAC3E,CAAC;AAAA,CAAC"}
