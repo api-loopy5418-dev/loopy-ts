@@ -1,0 +1,2 @@
+export declare function qrCode(text: string): Promise<"LoopyError: API Key file not found" | "LoopyError: API Key was not found." | import("axios").AxiosResponse<any, any> | "LoopyError: qrCode expected a string for text">;
+//# sourceMappingURL=qrCode.d.ts.map

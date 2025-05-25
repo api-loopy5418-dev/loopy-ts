@@ -16,4 +16,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./owoifyText"), exports);
 __exportStar(require("./emojifyText"), exports);
+__exportStar(require("./qrCode"), exports);
 //# sourceMappingURL=index.js.map

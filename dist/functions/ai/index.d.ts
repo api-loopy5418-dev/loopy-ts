@@ -1,2 +1,2 @@
-export * from './ai';
+export * from './generate';
 //# sourceMappingURL=index.d.ts.map
