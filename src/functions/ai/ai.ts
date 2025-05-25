@@ -5,6 +5,7 @@ import fs from 'fs'
 dotenv.config({ path: ".env_loopy" })
 
 export async function aiGenerate(prompt: string, speed: number) {
+  if (prompt === undefined) return "LoopyError: aiGenerate expected a string for prompt"
   if (speed !== 0 && speed !== 1 && speed !== 2) return `LoopyError: aiGenerate expected to get 0, 1 or 2 for speed but got "${speed}"`
   if (!fs.existsSync(".env_loopy")) return "LoopyError: API Key file not found"
   dotenv.config({ path: ".env_loopy" })

@@ -19,6 +19,8 @@ const fs_1 = __importDefault(require("fs"));
 dotenv_1.default.config({ path: ".env_loopy" });
 function aiGenerate(prompt, speed) {
     return __awaiter(this, void 0, void 0, function* () {
+        if (prompt === undefined)
+            return "LoopyError: aiGenerate expected a string for prompt";
         if (speed !== 0 && speed !== 1 && speed !== 2)
             return `LoopyError: aiGenerate expected to get 0, 1 or 2 for speed but got "${speed}"`;
         if (!fs_1.default.existsSync(".env_loopy"))

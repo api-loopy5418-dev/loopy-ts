@@ -3,6 +3,7 @@ import fs from 'fs'
 
 
 export function setApiKey(key: string) {
+  if (key === undefined) return "LoopyError: setApiKey expected to get API Key argument."
   if (fs.existsSync(".env_loopy")) {
     dotenv.config({ path: ".env_loopy" });
     const key2: string | null | undefined = process.env.KEY

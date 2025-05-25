@@ -12,20 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkStatus = checkStatus;
+exports.emojifyText = emojifyText;
 const axios_1 = __importDefault(require("axios"));
-function checkStatus() {
+function emojifyText(text) {
     return __awaiter(this, void 0, void 0, function* () {
-        let result;
-        try {
-            result = yield axios_1.default.get("https://api.loopy5418.dev/health", {
-                timeout: 3000,
-            });
-        }
-        catch (e) {
-            result = { data: false };
-        }
-        return (result === null || result === void 0 ? void 0 : result.data) == "OK" ? true : false;
+        if (text === undefined)
+            return "LoopyError: emojifyText expected to get text.";
+        const emoji = encodeURIComponent(text);
+        return yield axios_1.default.get(`https://api.loopy5418.dev/emojify?text=${emoji}`);
     });
 }
 ;

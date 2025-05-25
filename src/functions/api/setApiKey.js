@@ -7,6 +7,8 @@ exports.setApiKey = setApiKey;
 const dotenv_1 = __importDefault(require("dotenv"));
 const fs_1 = __importDefault(require("fs"));
 function setApiKey(key) {
+    if (key === undefined)
+        return "LoopyError: setApiKey expected to get API Key argument.";
     if (fs_1.default.existsSync(".env_loopy")) {
         dotenv_1.default.config({ path: ".env_loopy" });
         const key2 = process.env.KEY;
