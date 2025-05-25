@@ -1,2 +1,2 @@
 export * from "./ai/index"
-export * from "./apiKey/index"
+export * from "./api/index"

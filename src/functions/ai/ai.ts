@@ -4,7 +4,7 @@ import fs from 'fs'
 
 dotenv.config({ path: ".env_loopy" })
 
-export function aiGenerate(prompt: string, speed: number) {
+export async function aiGenerate(prompt: string, speed: number) {
   if (speed !== 0 && speed !== 1 && speed !== 2) return `LoopyError: aiGenerate expected to get 0, 1 or 2 for speed but got "${speed}"`
   if (!fs.existsSync(".env_loopy")) return "LoopyError: API Key file not found"
   dotenv.config({ path: ".env_loopy" })
@@ -17,7 +17,7 @@ export function aiGenerate(prompt: string, speed: number) {
     2: "fast"
   }
   const fast: string = fastM[speed]
-  return axios.get(`https://api.loopy5418.dev/openai/text?prompt=${text}&speed=${fast}&key=${key}`)
+  return await axios.get(`https://api.loopy5418.dev/openai/text?prompt=${text}&speed=${fast}&key=${key}`)
 }
 
 

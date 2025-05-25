@@ -1,5 +1,5 @@
 {
-  "name": "loopy",
+  "name": "loopy-ts",
   "version": "0.0.1",
   "description": "A reliable wrapper for the loopy5418 api.",
   "main": "src/index.js",
