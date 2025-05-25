@@ -10,7 +10,7 @@ const fs_1 = __importDefault(require("fs"));
 dotenv_1.default.config({ path: ".env_loopy" });
 function aiGenerate(prompt, speed) {
     if (speed !== 0 && speed !== 1 && speed !== 2)
-        return `LoopyError: ai.generate expected to get 0, 1 or 2 for speed but got "${speed}"`;
+        return `LoopyError: aiGenerate expected to get 0, 1 or 2 for speed but got "${speed}"`;
     if (!fs_1.default.existsSync(".env_loopy"))
         return "LoopyError: API Key file not found";
     dotenv_1.default.config({ path: ".env_loopy" });
