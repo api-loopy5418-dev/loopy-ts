@@ -11,6 +11,14 @@ const d = require("loopy-ts")
 
 d.setApiKey("[Secret]") // You can get your api key at https://discord.gg/ZwK2W7GxhA
 
+(async() => {
+  const status = await d.checkStatus()
+  if (!status) {
+    console.log("Api is Offline.")
+    return;
+  }
+})()
+
 d.aiGenerate("Hello! How are you?", 2).then(result => {
   console.log(result.data.response)
 }); /* 
@@ -20,3 +28,4 @@ d.aiGenerate("Hello! How are you?", 2).then(result => {
 * 2: fast, not smart
 */
 ```
+
