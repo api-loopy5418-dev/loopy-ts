@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://api.loopy5418.dev/">
-    <img width="500" src="https://cdn.discordapp.com/icons/1365258638222164008/b0ac96e1df99c594cfd6ccb5d435f618.webp" alt="loopy-ts">
+    <img width="200" src="https://cdn.discordapp.com/icons/1365258638222164008/b0ac96e1df99c594cfd6ccb5d435f618.webp" alt="loopy-ts">
   </a>
 </p>
 
@@ -14,19 +14,13 @@
 
 <div align="center">
 
-[![NPM downloads][download-url]] &nbsp; &nbsp;
-[![AoiJS Server][aoijs-server]][aoijs-server-url] &nbsp; &nbsp;
-[![NPM version][npm-url] &nbsp; &nbsp;
+[![Loopy Server][loopy-ts-server]][loopy-ts-server-url] &nbsp; &nbsp;
 ![License](https://img.shields.io/npm/l/loopy-ts) &nbsp; &nbsp;
 ![Website](https://img.shields.io/website?url=https%3A%2F%2Fapi.loopy5418.dev%2F&label=api.loopy5418.dev) &nbsp; &nbsp;
 
-[npm-url]: https://npmjs.org/package/loopy-ts
+[loopy-ts-server]: https://img.shields.io/discord/1365258638222164008?color=5865F2&logo=discord&logoColor=white
 
-[download-url]: https://npmjs.org/package/loopy-ts
-
-[aoijs-server]: https://img.shields.io/discord/1365258638222164008?color=5865F2&logo=discord&logoColor=white
-
-[aoijs-server-url]: https://discord.gg/ZwK2W7GxhA
+[loopy-ts-server-url]: https://discord.gg/ZwK2W7GxhA
 
   </div>
 
