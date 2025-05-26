@@ -1,0 +1,2 @@
+export declare function seconds2Time(seconds: number): Promise<import("axios").AxiosResponse<any, any> | "LoopyError: seconds2Time expected to get a number for seconds">;
+//# sourceMappingURL=seconds2Time.d.ts.map

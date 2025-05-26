@@ -17,4 +17,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./owoifyText"), exports);
 __exportStar(require("./emojifyText"), exports);
 __exportStar(require("./qrCode"), exports);
+__exportStar(require("./asciiArt"), exports);
 //# sourceMappingURL=index.js.map

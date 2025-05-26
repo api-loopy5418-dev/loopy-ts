@@ -1,0 +1,1 @@
+{"version":3,"file":"seconds2Time.js","sourceRoot":"","sources":["../../../src/functions/utils/seconds2Time.ts"],"names":[],"mappings":";;;;;AAEA,oCAGC;AALD,kDAAyB;AAElB,KAAK,UAAU,YAAY,CAAC,OAAe;IAChD,IAAI,OAAO,KAAK,SAAS,IAAI,MAAM,CAAC,KAAK,CAAC,OAAO,CAAC;QAAE,OAAO,+DAA+D,CAAA;IAC1H,OAAO,MAAM,eAAK,CAAC,GAAG,CAAC,qDAAqD,OAAO,EAAE,CAAC,CAAA;AACxF,CAAC"}
