@@ -1,31 +1,78 @@
-# loopy-ts
+<p align="center">
+  <a href="https://api.loopy5418.dev/">
+    <img width="500" src="https://cdn.discordapp.com/icons/1365258638222164008/b0ac96e1df99c594cfd6ccb5d435f618.webp" alt="loopy-ts">
+  </a>
+</p>
 
-The api wrapper for api.loopy5418.dev. api.loopy5418.dev is a mutli-purpose api. It has many endpoints which you can see at [here](https://api.loopy5418.dev/).
+<div align="center">
+  <b>The only api.loopy5418.dev wrapper you'll ever need.</b>
+</div>
+
+---
+
+<br/>
+
+<div align="center">
+
+[![NPM downloads][download-url]] &nbsp; &nbsp;
+[![AoiJS Server][aoijs-server]][aoijs-server-url] &nbsp; &nbsp;
+[![NPM version][npm-url] &nbsp; &nbsp;
+![License](https://img.shields.io/npm/l/loopy-ts) &nbsp; &nbsp;
+![Website](https://img.shields.io/website?url=https%3A%2F%2Fapi.loopy5418.dev%2F&label=api.loopy5418.dev) &nbsp; &nbsp;
+
+[npm-url]: https://npmjs.org/package/loopy-ts
+
+[download-url]: https://npmjs.org/package/loopy-ts
+
+[aoijs-server]: https://img.shields.io/discord/1365258638222164008?color=5865F2&logo=discord&logoColor=white
+
+[aoijs-server-url]: https://discord.gg/ZwK2W7GxhA
+
+  </div>
+
+<br />
+
+<div align = "center">
+
+**[ Documentation ](https://api.loopy5418.dev/)** | **[ Support Server ](https://discord.gg/ZwK2W7GxhA)** | **[ NPM ](https://npmjs.org/package/loopy-ts)** | **[ GitHub ](https://github.com/api-loopy5418-dev/loopy-ts)**
+
+</div>
+
+---
+
+## About
+
+loopy-ts is a wrapper for api.loopy5418.dev made in Typescript.
+
+It's easy for people that don't know how to make HTTP requests.
+
+## Setup
+
+```javascript
+const { setApiKey, aiGenerate, checkStatus } = require("loopy-ts");
+// Or const d = require("loopy-ts")
+
+setApiKey("Secret!")
+/* You can get your api key at our server
+* https://discord.gg/ZwK2W7GxhA
+*/
 
 
-Below will show how you set this wrapper.
-
-```js
-const d = require("loopy-ts")
-// Or whatever you want to name it
-
-d.setApiKey("[Secret]") // You can get your api key at https://discord.gg/ZwK2W7GxhA
-
-(async() => {
-  const status = await d.checkStatus()
-  if (!status) {
-    console.log("Api is Offline.")
-    return;
-  }
-})()
-
-d.aiGenerate("Hello! How are you?", 2).then(result => {
-  console.log(result.data.response)
-}); /* 
-* The meaning for 2 at the end is how speedy should the AI be. All speeds:
-* 0: large, so slow but smart
-* 1: balanced, average speed
-* 2: fast, not smart
+// Open AI
+aiGenerate("Hello, how are you! What's the weather in New York?", 2).then(result => {
+  console.log(result.data.response);
+});
+/* After running check your terminal!
+* It should say something like:
+* "Hello! I'm just a program, so I 
+* don't have feelings, but I'm here to help you. 
+* I don't have real-time data on the weather. 
+* For the most accurate and current weather 
+* information in New York, please check a 
+* reliable weather website or app."
 */
 ```
 
+## Notices
+
+> There are no notices as of now
