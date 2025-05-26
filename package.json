@@ -4,6 +4,7 @@
   "description": "A reliable wrapper for the loopy5418 api.",
   "main": "dist/index.js",
   "scripts": {
+    "clean": "rm -rf dist && npm run build",
     "build": "tsc"
   },
   "keywords": [

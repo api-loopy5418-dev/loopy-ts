@@ -3,12 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.currencyConveter = currencyConveter;
+exports.currencyConverter = currencyConverter;
 const axios_1 = __importDefault(require("axios"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const fs_1 = __importDefault(require("fs"));
 dotenv_1.default.config({ path: ".env_loopy" });
-async function currencyConveter(base, target, amount) {
+async function currencyConverter(base, target, amount) {
     if (base === undefined)
         return "LoopyError: currencyConveter expected a string for base";
     if (target === undefined)
@@ -22,6 +22,6 @@ async function currencyConveter(base, target, amount) {
     if (!key)
         return "LoopyError: API Key was not found.";
     const money = encodeURIComponent(amount);
-    return await axios_1.default.get(`https://api.loopy5418.dev/currency-converter?base=${base}&target=${target}&amount=${money}`);
+    return await axios_1.default.get(`https://api.loopy5418.dev/currency-converter?base=${base}&target=${target}&amount=${money}&key=${key}`);
 }
 //# sourceMappingURL=currencyConverter.js.map
