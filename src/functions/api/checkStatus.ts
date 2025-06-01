@@ -10,5 +10,5 @@ export async function checkStatus() {
     
     result = { data: false }
   }
-  return result?.data == "OK" ? true: false
+  return result?.data == "OK"
 };

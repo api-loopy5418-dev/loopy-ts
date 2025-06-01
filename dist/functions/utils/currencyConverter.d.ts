@@ -1,2 +1,2 @@
-export declare function currencyConverter(base: string, target: string, amount: number): Promise<"LoopyError: API Key file not found" | "LoopyError: API Key was not found." | import("axios").AxiosResponse<any, any> | "LoopyError: currencyConveter expected a string for base" | "LoopyError: currencyConveter expected a string for target" | "LoopyError: currencyConveter expected a number for amount">;
+export declare function currencyConverter(base: string, target: string, amount: number): Promise<import("axios").AxiosResponse<any, any>>;
 //# sourceMappingURL=currencyConverter.d.ts.map

@@ -1,2 +1,2 @@
-export declare function emojifyText(text: string): Promise<import("axios").AxiosResponse<any, any> | "LoopyError: emojifyText expected to get text.">;
+export declare function emojifyText(text: string): Promise<import("axios").AxiosResponse<any, any>>;
 //# sourceMappingURL=emojifyText.d.ts.map

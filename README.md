@@ -43,10 +43,12 @@ It's easy for people that don't know how to make HTTP requests.
 ## Setup
 
 ```javascript
-const { setApiKey, aiGenerate, checkStatus } = require("loopy-ts");
+const { loopy, aiGenerate, checkStatus } = require("loopy-ts");
 // Or const d = require("loopy-ts")
 
-setApiKey("Secret!")
+loopy({
+  apiKey: "Secret!"
+})
 /* You can get your api key at our server
 * https://discord.gg/ZwK2W7GxhA
 */
@@ -70,3 +72,4 @@ aiGenerate("Hello, how are you! What's the weather in New York?", 2).then(result
 ## Notices
 
 > There are no notices as of now
+

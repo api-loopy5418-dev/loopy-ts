@@ -15,7 +15,7 @@ async function checkStatus() {
     catch (e) {
         result = { data: false };
     }
-    return result?.data == "OK" ? true : false;
+    return result?.data == "OK";
 }
 ;
 //# sourceMappingURL=checkStatus.js.map
