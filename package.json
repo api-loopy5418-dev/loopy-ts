@@ -1,6 +1,6 @@
 {
   "name": "loopy-ts",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "A reliable wrapper for the loopy5418 api.",
   "main": "dist/index.js",
   "scripts": {
