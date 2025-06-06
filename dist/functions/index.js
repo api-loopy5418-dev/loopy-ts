@@ -18,4 +18,6 @@ __exportStar(require("./ai/index"), exports);
 __exportStar(require("./api/index"), exports);
 __exportStar(require("./fun/index"), exports);
 __exportStar(require("./utils/index"), exports);
+__exportStar(require("./search/index"), exports);
+__exportStar(require("./bdfd/index"), exports);
 //# sourceMappingURL=index.js.map
