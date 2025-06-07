@@ -1,2 +1,2 @@
-export * from "./loopy"
+export * from "./LoopyTS"
 

@@ -1,2 +1,2 @@
-export * from "./LoopyTS";
+export * from "./loopyFetch";
 //# sourceMappingURL=index.d.ts.map
