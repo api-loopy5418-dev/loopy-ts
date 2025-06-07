@@ -13,37 +13,66 @@ interface ILoopyOptions {
   key: string;
   suppressKeyPopup: boolean;
 }
-let key;
+let key: string | undefined;
 let popmsg = "LoopyTS: API Key is missing, enter it here. [key/cancel]: "
-let content;
+let content: string;
 
 /*
 * The logic to add API Key
 */
 
 function writeKey(apiKey: string) {
-/*
-* Create an env file
-* Add the API Key as the content
-*/
+  /*
+  * Create an env file
+  * Add the API Key as the content
+  */
+  try {
+    fs.writeFileSync('.env_loopy', `KEY=${apiKey}`)
+  } catch (err: any) {
+    throw new e.UnexpectedError(`LoopyTSError: Couldn't generate file/add API key, ${err.message}`)
+  }
+  console.log("LoopyTS: Created an file and added API key.")
 }
 
 function appendKey(apiKey: string) {
 /*
 * Add API Key to the existing file
 */
+  try {
+    fs.appendFileSync(".env_loopy", `\nKEY=${apiKey}`)
+  } catch (err: any) {
+    throw new e.UnexpectedError(`LoopyTSError: Couldn't add the new API key, ${err.message}`)
+  }
+  console.log("LoopyTS: Appended API key.")
 }
 
 function replaceKey(apiKey: string) {
-/*
-* Replace the existing API Key with the new one
-*/
+  /*
+  * Replace the existing API Key with the new one
+  */
+  let content = ""
+  try {
+    content = fs.readFileSync('.env_loopy', 'utf-8');
+  } catch (err: any) {
+    throw new e.UnexpectedError(`LoopyTSError: Couldn't read '.env_loopy' file, ${err.message}`)
+  }
+  try {
+    content = content.replace(/^KEY=.*/m, `KEY=${apiKey}`);
+  } catch (err: any) {
+    throw new e.UnexpectedError(`LoopyTSError: Couldn't change the API key, ${err.message}`)
+  }
+  try {
+    fs.writeFileSync('.env_loopy', content, 'utf-8')
+  } catch (err: any) {
+    throw new e.UnexpectedError(`LoopyTSError: Couldn't add the changed API key, ${err.message}`)
+  }
+  console.log("LoopyTS: Replaced API key with the new one.")
 }
 
 /*
 * Pop-up if you don't enter your key
 */
-async function askForKey() {
+async function askForKey(): Promise<string | undefined> {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -52,24 +81,34 @@ async function askForKey() {
   /*
   * Enter API Key in the console if you forgot to add it in the options
   */
-  rl.question(popmsg, async (a) => {
-    const ans = a?.trim()
-    if (ans === "cancel" || ans === undefined) {
-      console.log("LoopyTS: Keep in mind some functions won't work.")
-    }
-    /*
-    * Checking if API Key is valid
-    */
-    const res = await loopyFetch(`https://api.loopy5418.dev/check-api-key?key=${ans}`, 7000)
-    if (!res.exists && ans !== "cancel" && ans !== undefined) {
-      invalidKey()
-    } else {
-      console.log("LoopyTS: Valid key, going to the next step.")
-      key = ans
-      rl.close()
-    }
+  return new Promise((resolve) => {
+    rl.question(popmsg, async (a) => {
+      const ans = a?.trim();
+
+      if (ans === "cancel" || ans === undefined) {
+        console.log("LoopyTS: Keep in mind some functions won't work.");
+        rl.close();
+        return resolve(undefined);
+      }
+
+      /*
+      * Checking if API Key is valid
+      */
+      const res = await loopyFetch(`https://api.loopy5418.dev/check-api-key?key=${ans}`, 7000);
+
+      if (!res.exists) {
+        popmsg = "LoopyTS: That's an invalid API key, try again. [key/cancel]: ";
+        rl.close();
+        askForKey().then(resolve);
+      } else {
+        console.log("LoopyTS: Valid key, going to the next step.");
+        rl.close();
+        resolve(ans);
+      }
+    });
   });
 }
+
 /*
 * Function to change the pop-up message
 */ 
@@ -80,13 +119,13 @@ function invalidKey() {
 export async function LoopyTS(options: ILoopyOptions): Promise<void> {
   if (!options?.suppressKeyPopup) {
     if (options?.key == undefined) {
-      askForKey()
+      key = await askForKey()
     }
   }
   if (options?.key) {
     const res = await loopyFetch(`https://api.loopy5418.dev/check-api-key?key=${options?.key}`, 7000)
     if (!res.exists) {
-      invalidKey()
+      key = await askForKey()
     } else {
       console.log("LoopyTS: Valid key, going to the next step.")
       key = options?.key
