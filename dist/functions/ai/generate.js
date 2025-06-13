@@ -32,40 +32,50 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.aiGenerate = aiGenerate;
-const axios_1 = __importDefault(require("axios"));
-const dotenv_1 = __importDefault(require("dotenv"));
-const fs_1 = __importDefault(require("fs"));
 const e = __importStar(require("../../errors"));
-async function aiGenerate(prompt, speed) {
-    if (prompt === undefined)
-        throw new e.MissingArgsError("LoopyError: aiGenerate expected a string for prompt");
-    if (speed === undefined)
-        throw new e.MissingArgsError("LoopyError: aiGenerate expected a number for speed");
-    if (speed !== 0 && speed !== 1 && speed !== 2)
-        throw new e.InvalidArgError(`LoopyError: aiGenerate expected to get 0, 1 or 2 for speed but got "${speed}"`);
-    if (!fs_1.default.existsSync(".env_loopy"))
-        throw new e.FileNotFoundError("LoopyError: API Key file not found");
-    dotenv_1.default.config({ path: ".env_loopy" });
-    const key = process.env.KEY;
-    if (!key)
-        throw new e.ApiKeyMissingError("LoopyError: API Key was not found.");
-    const map = {
+function aiGenerate(prompt, speed) {
+    let overloads = {};
+    const speedMap = {
         0: "large",
         1: "balanced",
         2: "fast"
     };
-    try {
-        return await axios_1.default.get(`https://api.loopy5418.dev/openai/text?prompt=${encodeURIComponent(prompt)}&speed=${map[speed]}&key=${key}`, {
-            timeout: 20000,
-        });
+    if (typeof prompt === "string") {
+        overloads.prompt = prompt;
+        if (typeof speed === "undefined") {
+            overloads.speed = 1;
+        }
+        else if (typeof speed !== "number") {
+            throw new e.InvalidArgError(`LoopyError: aiGenerate expected a number for speed got ${typeof speed}`);
+        }
+        else if (typeof speedMap[speed] === "undefined") {
+            throw new e.InvalidArgError(`LoopyError: aiGenerate expected 0, 1 or 2 for speed but got ${speed}`);
+        }
+        else {
+            overloads.speed = speed;
+        }
     }
-    catch (err) {
-        throw new e.UnexpectedError(`LoopyError: Couldn't make a request, ${err.message}`);
+    else if (typeof prompt === 'object') {
+        overloads.prompt = prompt.prompt;
+        if (typeof prompt.speed === "undefined") {
+            overloads.speed = 1;
+        }
+        else if (typeof prompt.speed !== "number") {
+            throw new e.InvalidArgError(`LoopyError: aiGenerate expected a number for speed got ${typeof prompt.speed}`);
+        }
+        else if (typeof speedMap[prompt.speed] === "undefined") {
+            throw new e.InvalidArgError(`LoopyError: aiGenerate expected 0, 1 or 2 for speed but got ${prompt.speed}`);
+        }
+        else {
+            overloads.speed = prompt.speed;
+        }
     }
+    else {
+        throw new e.InvalidArgError(`LoopyError: aiGenerate expected string for prompt or object but got ${typeof prompt}`);
+    }
+    console.log(`Prompt: ${overloads.prompt} 
+Speed: ${overloads.speed}`);
 }
 //# sourceMappingURL=generate.js.map

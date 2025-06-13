@@ -5,7 +5,7 @@ export async function loopyFetch(url: string, timeout: number) {
   const time = setTimeout(() => controller.abort(), timeout);
 
   try {
-    const res = await fetch(url, { signal: controller.signal });
+    const res = await fetch(url, { signal: controller.signal, });
     clearTimeout(time);
     return await res.json()
   } catch (err: any) {
