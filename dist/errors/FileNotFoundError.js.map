@@ -1,0 +1,1 @@
+{"version":3,"file":"FileNotFoundError.js","sourceRoot":"","sources":["../../src/errors/FileNotFoundError.ts"],"names":[],"mappings":";;;AAAA,MAAa,iBAAkB,SAAQ,KAAK;IACxC,YAAY,OAAe;QACvB,KAAK,CAAC,OAAO,CAAC,CAAC;QACf,IAAI,CAAC,IAAI,GAAG,mBAAmB,CAAC;IACpC,CAAC;CACJ;AALD,8CAKC"}
