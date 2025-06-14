@@ -7,6 +7,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -27,6 +30,7 @@ jobs:
     - name: Clean
       if: env.skip == 'false'
       run: npm run clean
+
     - name: Commit changes
       if: env.skip == 'false'
       run: |
@@ -34,4 +38,5 @@ jobs:
         git config user.email "github-actions[bot]@users.noreply.github.com"
         git add .
         git commit -m "Compile to Javascript"
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
         git push
