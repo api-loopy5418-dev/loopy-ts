@@ -1,3 +1,4 @@
+import { loopyFetch, getApiKey } from "../../utils"
 import dotenv from 'dotenv'
 import fs from 'fs'
 import * as e from "../../errors"
@@ -25,9 +26,9 @@ interface IOverloadsOptions {
 /*
 * Overloads (i think)
 */
-export function aiGenerate(prompt: string, speed: number): void;
-export function aiGenerate(options: IAiGenerateOptions): void;
-export function aiGenerate(prompt: string | IAiGenerateOptions, speed?: number): void {
+export async function aiGenerate(prompt: string, speed: number): Promise<void>;
+export async function aiGenerate(options: IAiGenerateOptions): Promise<void>;
+export async function aiGenerate(prompt: string | IAiGenerateOptions, speed?: number): Promise<void> {
   let overloads: Partial<IOverloadsOptions> = {}
   const speedMap: Record<number, string> = {
     0: "large",
@@ -35,6 +36,9 @@ export function aiGenerate(prompt: string | IAiGenerateOptions, speed?: number):
     2: "fast"
   }
 
+  /*
+  * Setting up
+  */
   if (typeof prompt === "string") {
     overloads.prompt = prompt
     if (typeof speed === "undefined") {
@@ -47,7 +51,11 @@ export function aiGenerate(prompt: string | IAiGenerateOptions, speed?: number):
       overloads.speed = speed
     }
   } else if (typeof prompt === 'object') {
-    overloads.prompt = prompt.prompt
+    if (typeof prompt.prompt === "undefined") {
+      throw new e.InvalidArgError(`LoopyError: aiGenerate expected a string for prompt but got ${typeof prompt.prompt}`)
+    } else {
+      overloads.prompt = prompt.prompt
+    }
       if (typeof prompt.speed === "undefined") {
       overloads.speed = 1
     } else if (typeof prompt.speed !== "number") {
@@ -61,6 +69,10 @@ export function aiGenerate(prompt: string | IAiGenerateOptions, speed?: number):
     throw new e.InvalidArgError(`LoopyError: aiGenerate expected string for prompt or object but got ${typeof prompt}`)
   }
 
-  console.log(`Prompt: ${overloads.prompt} 
-Speed: ${overloads.speed}`);
+  /*
+  * Make request
+  */
+  return await loopyFetch(`https://api.loopy5418.dev/openai/text?prompt=${encodeURIComponent(overloads.prompt)}&speed=${speedMap[overloads.speed]}`, 20000, {
+    'api-key': await getApiKey()
+  });
 }

@@ -94,7 +94,7 @@ async function askForKey(): Promise<string | undefined> {
       /*
       * Checking if API Key is valid
       */
-      const res = await loopyFetch(`https://api.loopy5418.dev/check-api-key?key=${ans}`, 7000);
+      const res = await loopyFetch(`https://api.loopy5418.dev/check-api-key?api-key=${ans}`, 7000)
 
       if (!res.exists) {
         popmsg = "LoopyTS: That's an invalid API key, try again. [key/cancel]: ";
@@ -123,7 +123,7 @@ export async function LoopyTS(options: ILoopyOptions): Promise<void> {
     }
   }
   if (options?.key) {
-    const res = await loopyFetch(`https://api.loopy5418.dev/check-api-key?key=${options?.key}`, 7000)
+    const res = await loopyFetch(`https://api.loopy5418.dev/check-api-key?api-key=${options?.key}`, 7000)
     if (!res.exists) {
       key = await askForKey()
     } else {

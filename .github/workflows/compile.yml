@@ -1,0 +1,26 @@
+name: Compile to Javascript 
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check if it's version commit
+      id: check_commit
+      run: |
+        if [[ "${{ github.event.head_commit.message }}" == v* ]]; then
+          echo "skip=true" >> $GITHUB_ENV
+        else
+          echo "skip=false" >> $GITHUB_ENV
+        fi
+
+    - name: Install dependencies
+      if: env.skip == 'false'
+      run: npm ci
+
+    - name: Clean
+      if: env.skip == 'false'
+      run: npm run clean

@@ -1,1 +1,0 @@
-{"version":3,"file":"MissingArgsError.js","sourceRoot":"","sources":["../../src/errors/MissingArgsError.ts"],"names":[],"mappings":";;;AAAA,MAAa,gBAAiB,SAAQ,KAAK;IACvC,YAAY,OAAe;QACvB,KAAK,CAAC,OAAO,CAAC,CAAC;QACf,IAAI,CAAC,IAAI,GAAG,kBAAkB,CAAC;IACnC,CAAC;CACJ;AALD,4CAKC"}
