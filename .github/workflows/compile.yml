@@ -61,4 +61,7 @@ jobs:
         else
           echo "No version bump detected; publishing without version bump"
         fi
+
+        echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+
         npm publish --access public
