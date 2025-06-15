@@ -44,7 +44,7 @@ async function image(prompt, canvas) {
             if (canvas === "landscape" || canvas === "portrait" || canvas === "square" || canvas === undefined) {
                 return canvas || "square";
             }
-            throw new e.InvalidArgError("Invalid canvas argument");
+            throw new e.InvalidArgError(`LoopyError: AI.Generate.image expected landscape, square, portrait or nothing for canvas but got ${canvas}`);
         })();
     }
     else if (typeof prompt === "object") {
@@ -53,14 +53,14 @@ async function image(prompt, canvas) {
             if (prompt.canvas === "landscape" || prompt.canvas === "portrait" || prompt.canvas === "square" || prompt.canvas === undefined) {
                 return prompt.canvas || "square";
             }
-            throw new e.InvalidArgError("Invalid canvas argument");
+            throw new e.InvalidArgError(`LoopyError: AI.Generate.image expected landscape, square, portrait or nothing for canvas but got ${prompt.canvas}`);
         })();
     }
     else {
-        throw new e.InvalidArgError(`LoopyError: prompt expected string or object but got ${typeof prompt}`);
+        throw new e.InvalidArgError(`LoopyError: AI.Generate.image expected string or object but got ${typeof prompt}`);
     }
     if (typeof overloads.prompt !== "string") {
-        throw new e.InvalidArgError(`LoopyError: prompt must be string`);
+        throw new e.InvalidArgError(`LoopyError: AI.Generate.image expected string for prompt but got ${typeof overloads.prompt}`);
     }
     return await (0, utils_1.loopyFetch)(`https://api.loopy5418.dev/openai/image?prompt=${encodeURIComponent(overloads.prompt)}&canvas=${overloads.canvas}`, 20000, {
         'api-key': await (0, utils_1.getApiKey)()

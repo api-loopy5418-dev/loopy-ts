@@ -52,13 +52,13 @@ async function text(prompt, speed) {
         overloads.speed = typeof prompt.speed === "undefined" ? 1 : prompt.speed;
     }
     else {
-        throw new e.InvalidArgError(`LoopyError: text expected string or object but got ${typeof prompt}`);
+        throw new e.InvalidArgError(`LoopyError: AI.generate.text expected string or object but got ${typeof prompt}`);
     }
     if (typeof overloads.prompt !== "string") {
-        throw new e.InvalidArgError(`LoopyError: prompt must be string`);
+        throw new e.InvalidArgError(`LoopyError: AI.generate.text expected string for prompt but got ${typeof overloads.prompt}`);
     }
     if (typeof overloads.speed !== "number" || !(overloads.speed in speedMap)) {
-        throw new e.InvalidArgError(`LoopyError: speed must be 0, 1, or 2`);
+        throw new e.InvalidArgError(`LoopyError: AI.generate.text expected 0, 1, or 2 for speed but got ${overloads.speed}`);
     }
     return await utils_1.loopyFetch.post(`https://api.loopy5418.dev/openai/text`, 20000, {
         'prompt': overloads.prompt,
