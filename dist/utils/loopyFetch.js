@@ -35,13 +35,36 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loopyFetch = loopyFetch;
 const e = __importStar(require("../errors"));
-async function loopyFetch(url, timeout, header) {
+async function get(url, timeout, header) {
     const controller = new AbortController();
     const time = setTimeout(() => controller.abort(), timeout);
     try {
         const res = await fetch(url, {
             signal: controller.signal,
             headers: header
+        });
+        clearTimeout(time);
+        const body = await res.text();
+        return Promise.resolve().then(() => JSON.parse(body)).catch(() => body);
+    }
+    catch (err) {
+        clearTimeout(time);
+        throw new e.UnexpectedError(`Couldn't make a request, ${err.message}`);
+    }
+}
+async function post(url, timeout, body, header) {
+    const controller = new AbortController();
+    const time = setTimeout(() => controller.abort(), timeout);
+    const headers = {
+        "Content-Type": "application/json",
+        ...header,
+    };
+    try {
+        const res = await fetch(url, {
+            method: "POST",
+            signal: controller.signal,
+            headers,
+            body: JSON.stringify(body),
         });
         clearTimeout(time);
         return await res.json();
@@ -51,4 +74,8 @@ async function loopyFetch(url, timeout, header) {
         throw new e.UnexpectedError(`Couldn't make a request, ${err.message}`);
     }
 }
+async function loopyFetch(url, timeout, header) {
+    return get(url, timeout, header);
+}
+loopyFetch.post = post;
 //# sourceMappingURL=loopyFetch.js.map

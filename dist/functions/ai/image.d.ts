@@ -1,2 +1,8 @@
-export declare function aiGenerateImage(prompt: string, canvas: string): Promise<import("axios").AxiosResponse<any, any>>;
+interface IAIImageOptions {
+    prompt: string;
+    canvas: string;
+}
+export declare function image(prompt: string, canvas: string): Promise<any>;
+export declare function image(options: IAIImageOptions): Promise<any>;
+export {};
 //# sourceMappingURL=image.d.ts.map

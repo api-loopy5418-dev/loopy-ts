@@ -1,19 +1,42 @@
-import axios from 'axios'
-import dotenv from 'dotenv'
-import fs from 'fs'
-import * as e from "../../errors"
+import { loopyFetch, getApiKey } from "../../utils";
+import * as e from "../../errors";
 
-export async function aiGenerateImage(prompt: string, canvas: string) {
-  if (prompt === undefined) throw new e.MissingArgsError("LoopyError: aiGenerateImage expected a string for prompt")
-  if (canvas === undefined) throw new e.MissingArgsError("LoopyError: aiGenerateImage expected a string for canvas")
-  if (canvas !== "landscape" && canvas !== "portrait" && canvas !== "square") throw new e.InvalidArgError(`LoopyError: aiGenerateImage expected to get 0, 1 or 2 for speed but got "${canvas}"`)
-  if (!fs.existsSync(".env_loopy")) throw new e.FileNotFoundError("LoopyError: API Key file not found")
-  dotenv.config({ path: ".env_loopy" })
-  const key: string | null | undefined = process.env.KEY
-  if (!key) throw new e.ApiKeyMissingError("LoopyError: API Key was not found.")
-  try {
-    return await axios.get(`https://api.loopy5418.dev/openai/image?prompt=${encodeURIComponent(prompt)}&canvas=${encodeURIComponent(canvas)}&key=${key}`)
-  } catch (err: any) {
-    throw new e.UnexpectedError(`LoopyError: Couldn't make a request, ${err.message}`)
+interface IAIImageOptions {
+  prompt: string;
+  canvas: string;
+}
+
+
+export async function image(prompt: string, canvas: string): Promise<any>;
+export async function image(options: IAIImageOptions): Promise<any>;
+export async function image(prompt: string | IAIImageOptions, canvas?: string): Promise<any> {
+  let overloads: Partial<IAIImageOptions> = {};
+
+  if (typeof prompt === "string") {
+    overloads.prompt = prompt;
+    overloads.canvas = (() => {
+      if (canvas === "landscape" || canvas === "portrait" || canvas === "square" || canvas === undefined) {
+        return canvas || "square"
+      }
+      throw new e.InvalidArgError(`LoopyError: AI.Generate.image expected landscape, square, portrait or nothing for canvas but got ${canvas}`)
+    })();
+  } else if (typeof prompt === "object") {
+    overloads.prompt = prompt.prompt;
+    overloads.canvas = (() => {
+      if (prompt.canvas === "landscape" || prompt.canvas === "portrait" || prompt.canvas === "square" || prompt.canvas === undefined) {
+        return prompt.canvas || "square"
+      }
+      throw new e.InvalidArgError(`LoopyError: AI.Generate.image expected landscape, square, portrait or nothing for canvas but got ${prompt.canvas}`);
+    })();
+  } else {
+    throw new e.InvalidArgError(`LoopyError: AI.Generate.image expected string or object but got ${typeof prompt}`);
   }
+
+  if (typeof overloads.prompt !== "string") {
+    throw new e.InvalidArgError(`LoopyError: AI.Generate.image expected string for prompt but got ${typeof overloads.prompt}`);
+  }
+
+  return await loopyFetch(`https://api.loopy5418.dev/openai/image?prompt=${encodeURIComponent(overloads.prompt)}&canvas=${overloads.canvas}`, 20000, {
+    'api-key': await getApiKey()
+  })
 }
