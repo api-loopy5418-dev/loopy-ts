@@ -1,4 +1,4 @@
-name: Compile to Javascript (and maybe publish)
+name: Compile to Javascript (And maybe publish)
 
 on:
   push:
