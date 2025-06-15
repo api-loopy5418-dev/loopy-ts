@@ -59,9 +59,13 @@ jobs:
         elif [[ "${{ github.event.head_commit.message }}" == p:\ patch* ]]; then
           npm version patch
         else
-          echo "No version bump detected; publishing without version bump"
+          npm version patch
         fi
 
         echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
 
-        npm publish --access public
+        if [[ "${GITHUB_REF}" == "refs/heads/dev" ]]; then
+          npm publish --access public --tag dev
+        else
+          npm publish --access public
+        fi
