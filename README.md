@@ -5,7 +5,7 @@
 </p>
 
 <div align="center">
-  <b>The only api.loopy5418.dev wrapper you'll ever need.</b>
+  <b>The only api.loopy5418.dev wrapper you'll ever need.....</b>
 </div>
 
 ---
