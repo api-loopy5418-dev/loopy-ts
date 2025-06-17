@@ -43,7 +43,7 @@ It's easy for people that don't know how to make HTTP requests.
 ## Example
 
 ```javascript
-const { API, LoopyTS, AI } = require("../dist")
+const { API, LoopyTS, AI } = require("loopy-ts")
 
 async function loopy() {
   LoopyTS({ key: "[Secret!]" })
