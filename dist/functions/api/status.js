@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkStatus = checkStatus;
+exports.status = status;
 const utils_1 = require("../../utils");
-async function checkStatus() {
+async function status() {
     try {
         return await (0, utils_1.loopyFetch)("https://api.loopy5418.dev/health", 3000) === "OK";
     }
@@ -11,4 +11,4 @@ async function checkStatus() {
     }
 }
 ;
-//# sourceMappingURL=checkStatus.js.map
+//# sourceMappingURL=status.js.map

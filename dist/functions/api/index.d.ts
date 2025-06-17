@@ -1,3 +1,3 @@
-export * from './checkStatus';
-export * from './getApiKey';
+declare const API: any;
+export { API };
 //# sourceMappingURL=index.d.ts.map
