@@ -16,4 +16,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./loopyFetch"), exports);
 __exportStar(require("./getApiKey"), exports);
+__exportStar(require("./init"), exports);
 //# sourceMappingURL=index.js.map

@@ -1,2 +1,2 @@
-export declare function key(): Promise<any>;
+export declare function key(): Promise<string>;
 //# sourceMappingURL=key.d.ts.map

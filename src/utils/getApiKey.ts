@@ -1,15 +1,18 @@
+import "reflect-metadata"
+import { AppDataSource } from "../ormconfig"
+import { Key } from "../entity/Key"
 import fs from 'fs'
-import dotenv from 'dotenv'
 import * as e from "../errors"
+import { init } from "."
 
-export function getApiKey() {
-  if (!fs.existsSync(".env_loopy")) {
-    throw new e.FileNotFoundError("LoopyError: API Key file not found")
+export async  function getApiKey() {
+  if (!fs.existsSync("./database/database.sqlite")) {
+    throw new e.FileNotFoundError("LoopyError: Database not found.")
   }
-  dotenv.config({ path: ".env_loopy" })
-  const key: any = process.env.KEY
-  if (!key) {
-    throw new e.ApiKeyMissingError("LoopyError: API Key was not found.")
-  }
-  return key
+  await init()
+  const data = AppDataSource.getRepository(Key)
+  const a = await data.find()
+  const res: Key | null = a[0] ?? null
+  if (!res) return "none"
+  return res.key
 }

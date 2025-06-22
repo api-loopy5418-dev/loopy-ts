@@ -36,23 +36,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getApiKey = getApiKey;
-require("reflect-metadata");
-const ormconfig_1 = require("../ormconfig");
-const Key_1 = require("../entity/Key");
+exports.temp = temp;
 const fs_1 = __importDefault(require("fs"));
-const e = __importStar(require("../errors"));
-const _1 = require(".");
-async function getApiKey() {
+const ormconfig_1 = require("../../ormconfig");
+const Key_1 = require("../../entity/Key");
+const e = __importStar(require("../../errors"));
+const utils_1 = require("../../utils");
+async function temp(newKeyValue) {
     if (!fs_1.default.existsSync("./database/database.sqlite")) {
         throw new e.FileNotFoundError("LoopyError: Database not found.");
     }
-    await (0, _1.init)();
+    await (0, utils_1.init)();
     const data = ormconfig_1.AppDataSource.getRepository(Key_1.Key);
-    const a = await data.find();
-    const res = a[0] ?? null;
-    if (!res)
-        return "none";
-    return res.key;
+    await data.clear();
+    const key = new Key_1.Key();
+    key.key = newKeyValue;
+    await data.save(key);
 }
-//# sourceMappingURL=getApiKey.js.map
+//# sourceMappingURL=temp.js.map

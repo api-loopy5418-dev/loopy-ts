@@ -8,3 +8,4 @@ API.Get = {}
 API.Get.key = key
 
 export { API }
+export * from "./temp"
