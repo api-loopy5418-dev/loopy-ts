@@ -1,7 +1,7 @@
-import { PrimaryColumn, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Key {
-  @PrimaryColumn()
+  @PrimaryColumn({ name: "key" })
   key!: string;
 }

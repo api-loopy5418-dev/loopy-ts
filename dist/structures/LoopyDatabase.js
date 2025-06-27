@@ -36,23 +36,45 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getApiKey = getApiKey;
-const dotenv_1 = __importDefault(require("dotenv"));
+exports.AppDataSource = void 0;
+exports.LoopyDatabase = LoopyDatabase;
 const fs_1 = __importDefault(require("fs"));
-const e = __importStar(require("../../errors"));
-function getApiKey() {
-    try {
-        if (!fs_1.default.existsSync(".env_loopy"))
-            throw new e.FileNotFoundError("LoopyError: getApiKey couldn't find API Key file");
-    }
-    catch (err) {
-        throw new e.UnexpectedError(`LoopyError: Something went wrong, ${err.message}`);
-    }
-    dotenv_1.default.config({ path: ".env_loopy" });
-    const key = process.env.KEY;
-    if (!key)
-        throw new e.ApiKeyMissingError("LoopyError: getApiKey couldn't find API Key");
-    return key;
+const typeorm_1 = require("typeorm");
+const ResponseID_1 = require("../entity/ResponseID");
+const Key_1 = require("../entity/Key");
+const e = __importStar(require("../errors"));
+let file = "./database/database.sqlite";
+async function DatabaseSetup() {
+    exports.AppDataSource = new typeorm_1.DataSource({
+        type: "sqlite",
+        database: file,
+        synchronize: true,
+        logging: false,
+        entities: [ResponseID_1.ResponseID, Key_1.Key],
+        migrations: [],
+        subscribers: [],
+    });
+    console.log("DatabaseSetup: Succesfully set up the database!");
 }
-;
-//# sourceMappingURL=getApiKey.js.map
+async function DatabaseInitializer() {
+    if (!exports.AppDataSource.isInitialized) {
+        await exports.AppDataSource.initialize();
+        console.log("DatabaseInitializer initialized the database.");
+    }
+}
+async function LoopyDatabase(options) {
+    if (typeof options?.file !== "undefined") {
+        file = options?.file;
+    }
+    console.log("LoopyDatabase: Setting up the database");
+    console.log("LoopyDatabase: Checking file existencce");
+    if (!fs_1.default.existsSync(file)) {
+        throw new e.FileNotFoundError("LoopyDatabase: File not found");
+    }
+    console.log("LoopyDatabase: File Found");
+    console.log("LoopyDatabase used DatabaseSetup");
+    await DatabaseSetup();
+    console.log("LoopyDatabase used DatabaseInitializer");
+    await DatabaseInitializer();
+}
+//# sourceMappingURL=LoopyDatabase.js.map

@@ -16,7 +16,7 @@ let Key = class Key {
 };
 exports.Key = Key;
 __decorate([
-    (0, typeorm_1.PrimaryColumn)(),
+    (0, typeorm_1.PrimaryColumn)({ name: "key" }),
     __metadata("design:type", String)
 ], Key.prototype, "key", void 0);
 exports.Key = Key = __decorate([

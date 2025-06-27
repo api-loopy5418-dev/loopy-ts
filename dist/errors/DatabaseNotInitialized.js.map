@@ -1,0 +1,1 @@
+{"version":3,"file":"DatabaseNotInitialized.js","sourceRoot":"","sources":["../../src/errors/DatabaseNotInitialized.ts"],"names":[],"mappings":";;;AAAA,MAAa,sBAAuB,SAAQ,KAAK;IAC7C,YAAY,OAAe;QACvB,KAAK,CAAC,OAAO,CAAC,CAAC;QACf,IAAI,CAAC,IAAI,GAAG,wBAAwB,CAAC;IACzC,CAAC;CACJ;AALD,wDAKC"}

@@ -1,1 +1,0 @@
-{"version":3,"file":"checkStatus.js","sourceRoot":"","sources":["../../../src/functions/api/checkStatus.ts"],"names":[],"mappings":";;AAEA,kCAMC;AARD,uCAAwC;AAEjC,KAAK,UAAU,WAAW;IAC/B,IAAI,CAAC;QACH,OAAO,MAAM,IAAA,kBAAU,EAAC,kCAAkC,EAAE,IAAI,CAAC,KAAK,IAAI,CAAA;IAC5E,CAAC;IAAC,OAAO,CAAC,EAAE,CAAC;QACX,OAAO,KAAK,CAAA;IACd,CAAC;AACH,CAAC;AAAA,CAAC"}

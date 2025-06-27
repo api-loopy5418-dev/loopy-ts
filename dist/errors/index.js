@@ -19,4 +19,5 @@ __exportStar(require("./UnexpectedError"), exports);
 __exportStar(require("./ApiKeyMissingError"), exports);
 __exportStar(require("./InvalidArgError"), exports);
 __exportStar(require("./MissingArgsError"), exports);
+__exportStar(require("./DatabaseNotInitialized"), exports);
 //# sourceMappingURL=index.js.map
