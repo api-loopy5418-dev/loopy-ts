@@ -40,32 +40,40 @@ loopy-ts is a wrapper for api.loopy5418.dev made in Typescript.
 
 It's easy for people that don't know how to make HTTP requests.
 
-## Setup
+## Example
 
 ```javascript
-const { loopy, aiGenerate, checkStatus } = require("loopy-ts");
-// Or const d = require("loopy-ts")
+const { API, LoopyTS, AI } = require("loopy-ts")
 
-loopy({
-  apiKey: "Secret!"
-})
-/* You can get your api key at our server
-* https://discord.gg/ZwK2W7GxhA
-*/
+async function loopy() {
+  LoopyTS({ key: "[Secret!]" })
+  /* You can get your api key at our server
+  * https://discord.gg/ZwK2W7GxhA
+  */
 
+  const status = await API.Check.status()
+  if (status !== true) {
+    console.log("API offline, try again later.")
+    return;
+  }
 
-// Open AI
-aiGenerate("Hello, how are you! What's the weather in New York?", 2).then(result => {
-  console.log(result.data.response);
-});
-/* After running check your terminal!
-* It should say something like:
-* "Hello! I'm just a program, so I 
-* don't have feelings, but I'm here to help you. 
-* I don't have real-time data on the weather. 
-* For the most accurate and current weather 
-* information in New York, please check a 
-* reliable weather website or app."
+  AI.Generate.text("Hello! How are you?").then(res => {
+    if (!res.response) {
+      console.log("Something went wrong, response:")
+      console.log(res)
+      return;
+    }
+    console.log(res.response)
+  })
+}
+
+loopy()
+
+/*
+* After checking your terminal it should say something like:
+* "LoopyTS: Valid key, going to the next step.
+* LoopyTS: Replaced API key with the new one.
+* Hello! I'm doing great, thank you. How can I assist you today?"
 */
 ```
 

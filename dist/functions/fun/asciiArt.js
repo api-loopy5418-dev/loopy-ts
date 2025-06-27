@@ -32,24 +32,19 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.asciiArt = asciiArt;
-const axios_1 = __importDefault(require("axios"));
+const utils_1 = require("../../utils");
 const e = __importStar(require("../../errors"));
-async function asciiArt(text) {
-    if (text === undefined)
+/*
+* Accepts string
+* And an object
+*/
+async function asciiArt(option) {
+    if (typeof option === undefined) {
         throw new e.MissingArgsError("LoopyError: asciiArt expected to get string for text.");
-    try {
-        return await axios_1.default.get(`https://api.loopy5418.dev/ascii-art?text=${encodeURIComponent(text)}`, {
-            timeout: 3000,
-        });
     }
-    catch (err) {
-        throw new e.UnexpectedError(`LoopyError: Couldn't make a request, ${err.message}`);
-    }
+    return await (0, utils_1.loopyFetch)(`https://api.loopy5418.dev/ascii-art?text=${encodeURIComponent(typeof option === "string" ? option : option.text)}`, 3000);
 }
 ;
 //# sourceMappingURL=asciiArt.js.map

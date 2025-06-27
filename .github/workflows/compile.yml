@@ -1,0 +1,71 @@
+name: Compile to Javascript (And maybe publish)
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Check commit message
+      id: check_commit
+      run: |
+        if [[ "${{ github.event.head_commit.message }}" == v* ]]; then
+          echo "skip=true" >> $GITHUB_ENV
+        else
+          echo "skip=false" >> $GITHUB_ENV
+        fi
+
+        if [[ "${{ github.event.head_commit.message }}" == p:* ]]; then
+          echo "pub=true" >> $GITHUB_ENV
+        else
+          echo "pub=false" >> $GITHUB_ENV
+        fi
+
+    - name: Install dependencies
+      if: env.skip == 'false'
+      run: npm ci
+
+    - name: Clean
+      if: env.skip == 'false'
+      run: npm run clean
+
+    - name: Commit changes if any
+      if: env.skip == 'false'
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add .
+        git diff --quiet || git commit -m "Compile to Javascript"
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+        git push
+
+    - name: Publish
+      if: env.pub == 'true'
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: |
+        if [[ "${{ github.event.head_commit.message }}" == p:\ major* ]]; then
+          npm version major
+        elif [[ "${{ github.event.head_commit.message }}" == p:\ minor* ]]; then
+          npm version minor
+        elif [[ "${{ github.event.head_commit.message }}" == p:\ patch* ]]; then
+          npm version patch
+        else
+          npm version patch
+        fi
+
+        echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+
+        if [[ "${GITHUB_REF}" == "refs/heads/dev" ]]; then
+          npm publish --access public --tag dev
+        else
+          npm publish --access public
+        fi
