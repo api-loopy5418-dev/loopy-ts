@@ -1,11 +1,5 @@
-import "reflect-metadata"
-import { AppDataSource } from "../structures/LoopyDatabase"
-import { Key } from "../entity/Key"
+import { get } from "./get"
 
 export async function getApiKey() {
-  const data = AppDataSource.getRepository(Key);
-  const a = await data.find();
-  const res: Key | null = a[0] ?? null;
-  if (!res) return "none";
-  return res.key;
+  return (await get("Key"))?.key ?? "none";
 }
